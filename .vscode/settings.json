@@ -4,7 +4,9 @@
     "**/.svn": true,
     "**/.hg": true,
     "**/.DS_Store": true,
-    "**/Thumbs.db": true
+    "**/Thumbs.db": true,
+    ".pio": true,
+    ".vscode": true
   },
-  "hide-files.files": []
+  "hide-files.files": [".pio", ".vscode"]
 }
