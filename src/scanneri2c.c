@@ -12,8 +12,8 @@ void scanner_I2C(void) {
 
   memset(&busConfig, 0, sizeof(i2c_master_bus_config_t));
   busConfig.i2c_port = I2C_NUM_0;
-  busConfig.sda_io_num = GPIO_NUM_8;  // Adjust as per your wiring
-  busConfig.scl_io_num = GPIO_NUM_9;  // Adjust as per your wiring
+  busConfig.sda_io_num = GPIO_NUM_8;
+  busConfig.scl_io_num = GPIO_NUM_9;
   busConfig.intr_priority = 0;
   busConfig.flags.enable_internal_pullup = 1;
   busConfig.flags.allow_pd = 0;

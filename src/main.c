@@ -1,5 +1,4 @@
 #include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
 #include "comms.h"
 #include "pump.h"
 #include "scanneri2c.h"
@@ -8,19 +7,21 @@
 
 void app_main() {
 
-  while (1) {
-    scanner_I2C();
-    vTaskDelay(pdMS_TO_TICKS(100));
-  }
+  vTaskDelay(pdMS_TO_TICKS(3000));
 
-  system_init();
+  SystemDevs* sysDevs = system_init();
 
-  sensors_init();
+  SensorConfig sensorConfig;
+  sensorConfig.bmeDev = sysDevs->bme;
+  sensors_init(&sensorConfig);
 
+  SensorData data;
   for (;;) {
 
-    sensors_update();
+    sensors_update(&data);
 
+    printf("Temperature: %.2f ºC, Pressure: %.2f hPa, Humidity: %.2f%%\n", data.bme.temperature, data.bme.pressure,
+           data.bme.humidity);
     // code to decide when to send data and activate pump
 
     comms_sendData();
@@ -28,5 +29,7 @@ void app_main() {
     pump_activate();
 
     system_sleep();
+
+    vTaskDelay(pdMS_TO_TICKS(200));
   }
 }
